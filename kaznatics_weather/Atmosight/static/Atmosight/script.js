@@ -11,9 +11,9 @@ async function showForecast() {
 
   const forecast = data.dates.map((date, i) => ({
     date,
-    temp: data.temp[i],
-    humidity: data.humidity[i],
-    condition: getCondition()
+    temp: (data.temp[i] - 273).toFixed(1),
+    humidity: data.humidity[i].toFixed(1),
+    condition: getCondition(data, i)
   }));
 
   const ctx = document.getElementById("chart").getContext("2d");
@@ -42,9 +42,15 @@ async function showForecast() {
   renderTable(forecast);
 }
 
-function getCondition() {
-  const options = ["Sunny", "Cloudy", "Rainy", "Snowy", "Windy", "Foggy"];
-  return options[Math.floor(Math.random() * options.length)];
+function getCondition(data, i) {
+  var condition;
+  if(data.rain[i] > 2.5) condition = "Heavy rain/snow";
+  else if(data.rain[i] > 0.3) condition = "Light rain/snow";
+  else if(data.clouds[i] >= 1) condition = "Overcast skies";
+  else if(data.clouds[i] >= 0.7) condition = "Cloudy";
+  else if(data.clouds[i] >= 0.3) condition = "Partly cloudy";
+  else condition = "Sunny";
+  return condition;
 }
 
 function renderTable(forecast) {
@@ -52,7 +58,7 @@ function renderTable(forecast) {
     <table>
       <tr>
         <th>Date</th>
-        <th>Temperature (°C)</th>
+        <th>Temperature(°C)</th>
         <th>Humidity</th>
         <th>Condition</th>
       </tr>

@@ -2,6 +2,8 @@
   <dictionary name="project">
     <words>
       <w>atmosight</w>
+      <w>preds</w>
+      <w>rmse</w>
     </words>
   </dictionary>
 </component>
