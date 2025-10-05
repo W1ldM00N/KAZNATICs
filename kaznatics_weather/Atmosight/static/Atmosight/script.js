@@ -10,7 +10,7 @@ function getCondition(data, i) {
   else if(data.rain[i] > 0.5) condition = "Light rain/snow";
   else if(data.clouds[i] >= 1) condition = "Overcast skies";
   else if(data.clouds[i] >= 0.7) condition = "Cloudy";
-  else if(data.clouds[i] >= 0.3) condition = "Partly cloudy";
+  else if(data.clouds[i] >= 0.35) condition = "Partly cloudy";
   else condition = "Sunny";
   return condition;
 }
