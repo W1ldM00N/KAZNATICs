@@ -2,19 +2,8 @@ import numpy as np
 import pickle
 from datetime import datetime, timedelta
 import pandas as pd
-from sklearn.impute import SimpleImputer
-from sklearn.preprocessing import StandardScaler
-from lightgbm import LGBMRegressor
-from xgboost import XGBRegressor
-from sklearn.multioutput import MultiOutputRegressor
 
-# === Функция прогноза для Django ===
-def get_forecast(days_before: int = 100, days_after: int = 10):
-    """
-    Возвращает прогноз температуры и влажности на N дней вперёд.
-    Работает с уже обученной моделью (ml_model.pkl).
-    """
-
+def get_forecast(days_after: int = 10):
     X = pd.read_csv("ML_model/datasets/X_train.csv")
 
     X["date"] = pd.to_datetime(X["date"])
@@ -35,28 +24,22 @@ def get_forecast(days_before: int = 100, days_after: int = 10):
         imp_X = preprocessors["imp_X"]
         scaler = preprocessors["scaler"]
 
-    # === 2. Загружаем входные данные ===
     X = pd.read_csv("ML_model/datasets/X_train.csv")
     X["date"] = pd.to_datetime(X["date"])
     X = X.loc[X["date"] == pd.Timestamp(start_date)].drop(columns=["date"]).astype("float32")
 
-    # Преобразуем так же, как при обучении
     X_prep = imp_X.transform(X)
     X_prep = scaler.transform(X_prep)
 
-    # Берём последнюю строку (можно заменить на новую точку)
     X_last = X_prep[-1].reshape(1, -1)
 
-    # === 3. Получаем мета-признаки (из базовых моделей) ===
     base_features = []
     for name, model in base_models:
         preds = model.predict(X_last)
         base_features.append(preds)
 
-    # Конкатенируем (LightGBM + XGBoost → 100 фичей)
     X_meta = np.concatenate(base_features, axis=1)
 
-    # === 4. Прогноз через финальную модель ===
     y_pred = final_model.predict(X_meta)
 
     print(y_pred)
