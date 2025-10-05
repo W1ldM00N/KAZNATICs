@@ -22,3 +22,5 @@ media/
 *.csv
 *.h5
 *.pt
+
+kaznatics_weather/ML_model/base_models.pkl
