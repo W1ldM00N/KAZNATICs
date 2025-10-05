@@ -42,15 +42,13 @@ function renderTable(forecast) {
   if (oldTable) oldTable.remove();
   container.insertAdjacentHTML("beforeend", html);
 }
-// Храним прогноз, чтобы не запрашивать заново
+
 let globalForecast = [];
 
-// После загрузки прогноза — обновляем выпадающий список
 async function showForecast() {
   document.getElementById("chart").style.display = "block";
   const aiBox = document.getElementById("aiResponse");
   aiBox.textContent = "🤖 AI is analyzing past days...";
-    // Скрываем кнопку "Show 10-Day Forecast"
   document.getElementById("load").style.display = "none";
 
 
@@ -67,10 +65,9 @@ async function showForecast() {
   }));
 
 globalForecast = forecast;
-window.latestForecast = forecast; // чтобы старые места, где использовалось latestForecast, тоже работали
-document.getElementById("download").style.display = "inline-block"; // показать кнопку скачивания
+window.latestForecast = forecast;
+document.getElementById("download").style.display = "inline-block";
 
-  // Рисуем график
   const ctx = document.getElementById("chart").getContext("2d");
   if (window.currentChart) {
   window.currentChart.destroy();
@@ -98,7 +95,7 @@ document.getElementById("download").style.display = "inline-block"; // пока�
   });
 
   renderTable(forecast);
-  updateDaySelect(forecast); // активируем выбор дня
+  updateDaySelect(forecast);
 }
 
 const downloadBtn = document.getElementById("download");
@@ -111,7 +108,6 @@ downloadBtn.addEventListener("click", () => {
 
   let text = "Atmosight AI Forecast (next 10 days)\n\n";
   globalForecast.forEach(day => {
-    // используем реальные ключи: date, temp, humidity, condition
     text += `${day.date}: ${day.temp}°C, ${day.condition}, humidity ${day.humidity}%\n`;
   });
 
@@ -123,7 +119,6 @@ downloadBtn.addEventListener("click", () => {
   URL.revokeObjectURL(link.href);
 });
 
-// Обновляем выпадающий список и кнопку
 function updateDaySelect(forecast) {
   const select = document.getElementById("daySelect");
   const btn = document.getElementById("showDay");
@@ -155,14 +150,11 @@ document.getElementById("showDay").addEventListener("click", () => {
   const f = globalForecast[i];
   aiBox.textContent = `📅 Forecast for ${f.date}: ${f.condition}, ${f.temp}°C, humidity ${f.humidity}%`;
 
-  // 🔥 Убираем график
   chartCanvas.style.display = "none";
 
-  // Убираем старую таблицу или карточку, если есть
   const old = container.querySelector(".day-card, table");
   if (old) old.remove();
 
-  // 🧊 Определяем иконку погоды
   const icons = {
     "Sunny": "☀️",
     "Partly cloudy": "⛅",
@@ -173,7 +165,6 @@ document.getElementById("showDay").addEventListener("click", () => {
   };
   const icon = icons[f.condition] || "🌈";
 
-  // 🪄 Создаём карточку
   const cardHTML = `
     <div class="day-card">
       <div class="weather-icon">${icon}</div>
@@ -186,7 +177,6 @@ document.getElementById("showDay").addEventListener("click", () => {
   `;
   container.insertAdjacentHTML("beforeend", cardHTML);
 
-  // 🌀 Добавляем кнопку возврата
   document.getElementById("backToAll").addEventListener("click", () => {
     chartCanvas.style.display = "block";
     const card = container.querySelector(".day-card");

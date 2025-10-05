@@ -1,12 +1,9 @@
 import pickle
-
 import numpy as np
 import pandas as pd
 from tqdm import tqdm
-
 from lightgbm import LGBMRegressor
 from xgboost import XGBRegressor
-
 from sklearn.model_selection import train_test_split, KFold
 from sklearn.metrics import r2_score, mean_squared_error
 from sklearn.preprocessing import StandardScaler
@@ -37,7 +34,7 @@ scaler = StandardScaler()
 X_train = scaler.fit_transform(X_train)
 X_test = scaler.transform(X_test)
 
-# === 3. Базовые модели (multi-output) с "старыми" гиперпараметрами ===
+# === 3. Базовые модели с "старыми" гиперпараметрами ===
 base_models = [
     ("LightGBM", MultiOutputRegressor(
         LGBMRegressor(
@@ -71,7 +68,7 @@ base_models = [
 ]
 
 
-# === 4. Генерация out-of-fold предсказаний ===
+# === 4. Генерация oof предсказаний ===
 n_splits = 5
 num_targets = y_train.shape[1]
 num_base_models = len(base_models)
@@ -100,7 +97,7 @@ for m_idx, (name, model) in enumerate(base_models):
 
     oof_test[:, m_idx * num_targets:(m_idx + 1) * num_targets] = test_preds.mean(axis=2)
 
-# === 5. Мета-модель (multi-output) со старыми гиперпараметрами ===
+# === 5. Мета-модель со старыми гиперпараметрами ===
 final_model = MultiOutputRegressor(
     LGBMRegressor(
         n_estimators=400,
