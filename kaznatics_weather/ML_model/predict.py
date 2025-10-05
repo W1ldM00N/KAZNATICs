@@ -15,13 +15,13 @@ def get_forecast(days_before: int = 100, days_after: int = 10):
     Работает с уже обученной моделью (ml_model.pkl).
     """
 
-    X = pd.read_csv("ML_model/datasets/predict_dataset.csv")
+    X = pd.read_csv("ML_model/datasets/X_train.csv")
 
     X["date"] = pd.to_datetime(X["date"])
 
     last_date = X["date"].max()
 
-    start_date = min(datetime.today(), last_date) - timedelta(days=days_after)
+    start_date = min(datetime.today() - timedelta(days=days_after), last_date)
     days = [(start_date + timedelta(days=i)).strftime("%Y-%m-%d") for i in range(days_after)]
 
     with open("ML_model/base_models.pkl", "rb") as f:

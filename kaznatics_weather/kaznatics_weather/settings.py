@@ -23,8 +23,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-elyk2yvqv=n8_5nl+^==!d%hm04x^m^948v%ty-(mb3!wkz=u#'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
-ALLOWED_HOSTS = ['wildMoon.pythonanywhere.com']
+DEBUG = True
+ALLOWED_HOSTS = []
 
 
 
