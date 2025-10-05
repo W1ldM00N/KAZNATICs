@@ -2,6 +2,7 @@ import pickle
 
 import numpy as np
 import pandas as pd
+from tqdm import tqdm
 
 from lightgbm import LGBMRegressor
 from xgboost import XGBRegressor
@@ -69,6 +70,7 @@ base_models = [
     ))
 ]
 
+
 # === 4. Генерация out-of-fold предсказаний ===
 n_splits = 5
 num_targets = y_train.shape[1]
@@ -83,13 +85,18 @@ for m_idx, (name, model) in enumerate(base_models):
 
     kf = KFold(n_splits=n_splits, shuffle=True, random_state=42)
 
-    for fold, (tr_idx, val_idx) in enumerate(kf.split(X_train)):
+    for fold, (tr_idx, val_idx) in enumerate(
+            tqdm(kf.split(X_train), total=n_splits, desc=f"{name} folds")
+    ):
         X_tr, X_val = X_train[tr_idx], X_train[val_idx]
         y_tr, y_val = y_train[tr_idx], y_train[val_idx]
 
         model.fit(X_tr, y_tr)
-        oof_train[val_idx, m_idx * num_targets:(m_idx + 1) * num_targets] = model.predict(X_val)
-        test_preds[:, :, fold] = model.predict(X_test)
+        val_pred = model.predict(X_val)
+        test_pred = model.predict(X_test)
+
+        oof_train[val_idx, m_idx * num_targets:(m_idx + 1) * num_targets] = val_pred
+        test_preds[:, :, fold] = test_pred
 
     oof_test[:, m_idx * num_targets:(m_idx + 1) * num_targets] = test_preds.mean(axis=2)
 

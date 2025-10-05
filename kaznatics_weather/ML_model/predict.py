@@ -9,7 +9,7 @@ from xgboost import XGBRegressor
 from sklearn.multioutput import MultiOutputRegressor
 
 # === Функция прогноза для Django ===
-def get_forecast(days_before: int = 10):
+def get_forecast(days_before: int = 100, days_after: int = 10):
     """
     Возвращает прогноз температуры и влажности на N дней вперёд.
     Работает с уже обученной моделью (ml_model.pkl).
@@ -21,8 +21,8 @@ def get_forecast(days_before: int = 10):
 
     last_date = X["date"].max()
 
-    start_date = min(datetime.today(), last_date) - timedelta(days=days_before)
-    days = [(start_date + timedelta(days=i)).strftime("%Y-%m-%d") for i in range(days_before)]
+    start_date = min(datetime.today(), last_date) - timedelta(days=days_after)
+    days = [(start_date + timedelta(days=i)).strftime("%Y-%m-%d") for i in range(days_after)]
 
     with open("ML_model/base_models.pkl", "rb") as f:
         base_models = pickle.load(f)
