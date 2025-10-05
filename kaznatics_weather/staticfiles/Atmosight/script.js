@@ -10,7 +10,7 @@ function getCondition(data, i) {
   else if(data.rain[i] > 0.5) condition = "Light rain/snow";
   else if(data.clouds[i] >= 1) condition = "Overcast skies";
   else if(data.clouds[i] >= 0.7) condition = "Cloudy";
-  else if(data.clouds[i] >= 0.3) condition = "Partly cloudy";
+  else if(data.clouds[i] >= 0.35) condition = "Partly cloudy";
   else condition = "Sunny";
   return condition;
 }
@@ -49,7 +49,7 @@ let globalForecast = [];
 async function showForecast() {
   document.getElementById("chart").style.display = "block";
   const aiBox = document.getElementById("aiResponse");
-  aiBox.textContent = "🤖 AI is analyzing past 10 days...";
+  aiBox.textContent = "🤖 AI is analyzing past days...";
     // Скрываем кнопку "Show 10-Day Forecast"
   document.getElementById("load").style.display = "none";
 
