@@ -1,0 +1,210 @@
+/* style.css */
+body {
+
+  background: radial-gradient(130, #ffff00, #2076d2);
+  background: linear-gradient(135deg, #005095, #00f2fe);
+  font-family: Arial, sans-serif;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  margin: 0;
+}
+
+.container {
+  text-align: center;
+  width: 80%;
+  max-width: 800px;
+  margin-bottom: 28%;
+}
+
+button {
+  background-color: #fff;
+  color: #0078ff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-bottom: 20px;
+  transition: 0.3s;
+  margin-left: 30%;
+  margin-right: 30%;
+}
+button:hover {
+  background-color: #e0e0e0;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: rgba(255, 255, 255, 0.2);
+  margin-top: 20px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+th, td {
+  padding: 10px;
+  border-bottom: 1px solid rgba(255,255,255,0.3);
+  color: white;
+}
+
+th {
+  background-color: rgba(255, 255, 255, 0.3);
+  font-weight: bold;
+}
+.settings {
+  margin: 20px 0;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.settings label {
+  font-weight: bold;
+}
+.settings input {
+  width: 70px;
+  padding: 5px;
+  border-radius: 6px;
+  border: none;
+  text-align: center;
+}
+.fade-out {
+  transition: opacity 0.35s ease;
+  opacity: 0;
+  pointer-events: none;
+}
+.container, canvas, table, .ai-box {
+  animation: fadeIn 1s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.ai-box {
+  background-color: rgba(255,255,255,0.2);
+  border-radius: 10px;
+  padding: 15px;
+  margin: 20px 0;
+  font-style: italic;
+}
+.day-forecast {
+  margin: 15px 0;
+}
+
+.day-forecast select,
+.day-forecast button {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: none;
+  margin: 5px;
+  font-size: 14px;
+}
+.day-card {
+  background-color: rgba(255, 255, 255, 0.25);
+  border-radius: 20px;
+  padding: 25px;
+  text-align: center;
+  margin-top: 20px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  animation: fadeIn 0.7s ease;
+}
+
+.day-card h2 {
+  margin: 10px 0;
+}
+
+.day-card .weather-icon {
+  font-size: 60px;
+  margin-bottom: 10px;
+}
+
+.day-card .temp {
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.day-card button {
+  margin-top: 15px;
+  padding: 10px 20px;
+  background-color: #fff;
+  color: #0078ff;
+  border: none;
+  border-radius: 10px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.day-card button:hover {
+  background-color: #e0e0e0;
+}
+.logo {
+  position: fixed;
+  top: 15px;
+  left: 20px;
+  width: 200px;
+  height: auto;
+  z-index: 1000; /* чтобы логотип был поверх всего */
+  opacity: 0.9;
+  border-radius: 10px;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.logo:hover {
+  transform: scale(1.05);
+  opacity: 1;
+}
+
+button {
+  transition: background-color 0.3s, transform 0.2s;
+}
+button:hover {
+  transform: scale(1.05);
+}
+.fade-in {
+  opacity: 0;
+  animation: fadeIn 0.8s forwards;
+}
+@keyframes fadeIn {
+  to { opacity: 1; }
+}
+.day-card {
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(10px);
+  border-radius: 15px;
+  padding: 20px;
+  color: white;
+  box-shadow: 0 0 10px rgba(255,255,255,0.2);
+  text-align: center;
+  transition: transform 0.2s ease;
+}
+.day-card:hover {
+  transform: scale(1.03);
+}
+/* 🔥 Универсальный стиль для всех кнопок, включая динамические */
+button,
+.day-card button,
+.day-forecast button {
+  background: rgba(255,255,255,0.2) !important;
+  border: 1px solid rgba(255,255,255,0.3);
+  color: white !important;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
+}
+
+button:hover,
+.day-card button:hover,
+.day-forecast button:hover {
+  background: rgba(255,255,255,0.4) !important;
+  box-shadow: 0 0 10px rgba(255,255,255,0.6);
+  transform: scale(1.05);
+}
+

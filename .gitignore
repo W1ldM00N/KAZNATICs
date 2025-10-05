@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual environment
+.venv/
+env/
+
+# Django
+db.sqlite3
+/static/
+media/
+
+# IDE
+.idea/
+.vscode/
+
+# Models, datasets, misc
+*.pkl
+*.zip
+*.csv
+*.h5
+*.pt
