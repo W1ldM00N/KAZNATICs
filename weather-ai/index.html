@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Atmosight</title>
+  <!--suppress HtmlUnknownTarget, HtmlUnknownTarget -->
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  
+    <img src="images/logo.png" alt="Atmosight Logo" class="logo">
+  <div class="container">
+    <h1>Atmosight weather forecast</h1>
+
+    <button id="load">Show 10-Day Forecast</button>
+<button id="download" style="display: none;">Download Forecast</button>
+
+    <div id="aiResponse" class="ai-box">🤖 Waiting for input...</div>
+    <div class="day-forecast">
+  <select id="daySelect" disabled>
+    <option value="">Select a day...</option>
+  </select>
+  <button id="showDay" disabled>Show Forecast for Selected Day</button>
+</div>
+
+
+    <canvas id="chart" width="600" height="300"></canvas>
+  </div>
+  <!--suppress HtmlUnknownTarget, HtmlUnknownTarget -->
+<script src="script.js"></script>
+</body>
+</html>
+
